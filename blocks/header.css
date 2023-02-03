@@ -22,3 +22,9 @@
     height: 24px;
   }
 }
+
+@media screen and (max-width: 760px) {
+  .header {
+    margin-bottom: 38px;
+  }
+}
