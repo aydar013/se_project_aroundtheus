@@ -1,0 +1,111 @@
+.profile {
+  max-width: 880px;
+  width: 100%;
+  height: 128px;
+  margin: 0 auto;
+  padding: 36px 0 47px 0;
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+}
+
+.profile__image {
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
+  margin: 0;
+}
+
+.profile__title {
+  font-family: "Inter", Helvetica, sans-serif;
+  font-weight: 500;
+  color: #fff;
+  font-size: 42px;
+  line-height: 48px;
+  text-align: left;
+  grid-area: title;
+  margin-bottom: 0;
+  align-self: center;
+}
+
+.profile__subtitle {
+  grid-area: subtitle;
+  margin-top: 0;
+}
+
+.profile__edit-button {
+  background: url(../images/pencil.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid #fff;
+  width: 24px;
+  height: 24px;
+  grid-area: pencil;
+  align-self: end;
+  margin-bottom: 10px;
+}
+
+.profile__edit-button:hover {
+  opacity: 0.6;
+  transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.profile__add-button {
+  background: url(../images/plus.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 2px solid #fff;
+  width: 150px;
+  height: 50px;
+  border-radius: 2px;
+  align-self: center;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
+  transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.profile__grid {
+  display: grid;
+  grid-template-areas:
+    "title pencil"
+    "subtitle subtitle";
+  grid-template-columns: minmax(auto, 373px);
+  align-items: center;
+  column-gap: 18px;
+  padding-bottom: 0;
+}
+
+@media screen and (max-width: 760px) {
+  .profile {
+    grid-template-columns: 100vh;
+    grid-template-rows: repeat(3, 1fr);
+    justify-content: center;
+    justify-items: center;
+    width: 100%;
+  }
+  .profile__title {
+    margin: 26px 0 0;
+    font-size: 22px;
+    line-height: 27px;
+    justify-self: center;
+  }
+  .profile__subtitle {
+    justify-self: center;
+    margin: 14px 0 0;
+  }
+  .profile__add-button {
+    margin: 36px 0;
+  }
+  .profile__edit-button {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+  }
+  .profile__grid {
+    grid-template-columns: minmax(auto, 200px);
+    column-gap: 15px;
+  }
+}
