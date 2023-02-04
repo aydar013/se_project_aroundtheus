@@ -25,4 +25,4 @@ Grid and flex layouts has been used while was working on this page, buttons has 
 
 Desktop ![Desktop](images/desktop.png)
 Mobile ![Mobile](images/mobile.png)
-Link to github (https://github.com/aydar013/se_project_aroundtheus.git)
+Link to github (https://aydar013.github.io/se_project_aroundtheus/)

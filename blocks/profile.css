@@ -86,11 +86,12 @@
 @media screen and (max-width: 760px) {
   .profile {
     grid-template-columns: 100vh;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
     justify-content: center;
     justify-items: center;
     width: 100%;
     padding: 0;
+    margin: 0;
   }
   .profile__title {
     margin: 26px 0 0;
