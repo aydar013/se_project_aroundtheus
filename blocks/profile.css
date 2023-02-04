@@ -89,22 +89,22 @@
     grid-template-rows: repeat(3, auto);
     justify-content: center;
     justify-items: center;
+    max-width: 282px;
+    margin: 0 auto;
     width: 100%;
     padding: 0;
-    margin: 0;
   }
   .profile__title {
     margin: 26px 0 0;
     font-size: 22px;
     line-height: 27px;
-    justify-self: end;
     align-self: end;
   }
   .profile__subtitle {
-    justify-self: center;
-    margin: 14px 0 0;
+    margin: 14px 0 0 85px;
     font-size: 14px;
     line-height: 17px;
+    grid-column: 1 / 2;
   }
   .profile__add-button {
     margin: 36px 0;
