@@ -12,6 +12,7 @@
   height: 120px;
   width: 120px;
   margin: 0;
+  padding: 0;
 }
 
 .profile__title {
@@ -19,11 +20,10 @@
   color: #fff;
   font-size: 42px;
   line-height: 48px;
-  text-align: left;
+  width: 100%;
   grid-area: title;
   margin-bottom: 0;
   margin-top: 30px;
-  align-self: center;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -38,7 +38,7 @@
 }
 
 .profile__edit-button {
-  background: url(../images/paencil.svg);
+  background: transparent url(../images/paencil.svg);
   background-repeat: no-repeat;
   background-position: center;
   border: 1px solid #fff;
@@ -56,7 +56,7 @@
 }
 
 .profile__add-button {
-  background: url(../images/add.svg);
+  background: transparent url(../images/add.svg);
   background-repeat: no-repeat;
   background-position: center;
   border: 2px solid #fff;
@@ -77,37 +77,42 @@
   grid-template-areas:
     "title pencil"
     "subtitle subtitle";
-  grid-template-columns: minmax(auto, 373px);
   align-items: center;
   column-gap: 18px;
   padding-bottom: 0;
+  grid-template-columns: 380px auto;
 }
 
 @media screen and (max-width: 760px) {
   .profile {
-    grid-template-columns: 100vh;
-    grid-template-rows: repeat(3, auto);
-    justify-content: center;
-    justify-items: center;
-    max-width: 282px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 0 auto;
-    width: 100%;
+    max-width: 282px;
     padding: 0;
   }
+  .profile__grid {
+    text-align: center;
+    padding-top: 26px;
+    margin: 0;
+    column-gap: 10px;
+    grid-template-columns: auto auto;
+  }
   .profile__title {
-    margin: 26px 0 0;
+    width: 100%;
     font-size: 22px;
+    margin: 0 auto;
     line-height: 27px;
-    align-self: end;
   }
   .profile__subtitle {
-    margin: 14px 0 0 85px;
+    width: 100%;
     font-size: 14px;
+    margin: 14px auto 0;
     line-height: 17px;
-    grid-column: 1 / 2;
   }
   .profile__add-button {
-    margin: 36px 0;
+    margin: 36px auto;
     width: 282px;
     height: 50px;
     padding: 0;
@@ -115,10 +120,6 @@
   .profile__edit-button {
     width: 18px;
     height: 18px;
-    margin-bottom: 6px;
-  }
-  .profile__grid {
-    grid-template-columns: minmax(auto, 200px);
-    column-gap: 15px;
+    margin: 0;
   }
 }
