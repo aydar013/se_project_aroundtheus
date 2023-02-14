@@ -17,8 +17,31 @@
     <link rel="icon" type="image/icon" href="favicon.ico" />
     <title>Around the USA</title>
   </head>
-  <body>
-    <div class="page">
+  <body class="page">
+    <div class="modal">
+      <div class="modal__container">
+        <button class="modal__close-button"></button>
+        <h1 class="modal__heading">Edit profile</h1>
+        <form class="modal_form">
+          <input
+            class="modal__form-input"
+            type="text"
+            placeholder="Name"
+            name="name"
+            required
+          />
+          <input
+            class="modal__form-input"
+            type="text"
+            placeholder="Description"
+            name="description"
+            required
+          />
+          <button class="modal__submit-button" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+    <div class="page-content">
       <header class="header page__section">
         <img
           src="./images/around-logo.svg"

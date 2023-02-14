@@ -24,3 +24,9 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
+
+function discussWeatherInSeattle(weather = "rain") {
+  console.log(`How about this ${weather}?`);
+}
+
+discussWeatherInSeattle();
