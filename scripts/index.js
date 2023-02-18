@@ -25,8 +25,18 @@ const initialCards = [
   },
 ];
 
-function discussWeatherInSeattle(weather = "rain") {
-  console.log(`How about this ${weather}?`);
-}
+const modal = document.querySelector(".modal");
+const editButton = document.querySelector(".profile__edit-button");
+const closeButton = document.querySelector(".modal__close-button");
 
-discussWeatherInSeattle();
+document
+  .querySelector(".profile__edit-button")
+  .addEventListener("click", function () {
+    modal.classList.toggle("modal_opened");
+  });
+
+document
+  .querySelector(".modal__close-button")
+  .addEventListener("click", function () {
+    modal.classList.toggle("modal_opened");
+  });
