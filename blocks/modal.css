@@ -55,7 +55,7 @@
   font-weight: 900;
 }
 
-.modal_form {
+.modal__form {
   display: flex;
   flex-direction: column;
   width: 358px;
@@ -68,12 +68,12 @@
   margin: 0 auto;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  width: 358px;
+  width: 100%;
   box-sizing: border-box;
 }
 
-.modal__form-input:nth-child(2) {
-  margin-top: 23px;
+.modal__form-input:not(:last-of-type) {
+  margin-bottom: 23px;
 }
 
 .modal__form-input::placeholder {
@@ -114,7 +114,7 @@
     line-height: 22px;
     padding-bottom: 70px;
   }
-  .modal_form {
+  .modal__form {
     width: 238px;
   }
   .modal__form-input {

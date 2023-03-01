@@ -33,12 +33,13 @@ const profileDescription = document.querySelector(".profile__subtitle");
 //// MODALS
 
 const modal = document.querySelector(".modal");
-const container = document.querySelector(".modal__container");
-const form = document.querySelector(".modal_form");
+const profileContainer = document.querySelector(".modal__container");
+const profileForm = document.querySelector(".modal__form");
+const profileEditModal = document.querySelector("#profile-edit-modal");
 
 //// INPUTS AND BUTTONS
 
-const editButton = document.querySelector(".profile__edit-button");
+const editProfileButton = document.querySelector(".profile__edit-button");
 const closeButton = document.querySelector(".modal__close-button");
 const inputName = document.querySelector("#profile-title-input");
 const inputDescription = document.querySelector("#profile-description-input");
@@ -49,33 +50,22 @@ const placesList = document.querySelector(".gallery__cards");
 /////////////
 /// FUNCTIONS
 /////////////
-
-function openModal() {
-  modal.classList.toggle("modal_opened");
-  inputName.value = profileName.textContent;
-  inputDescription.value = profileDescription.textContent;
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
 }
 
-function closeModal() {
-  modal.classList.toggle("modal_opened");
+function openModal(modal) {
+  modal.classList.add("modal_opened");
 }
 
-function handleFormSubmit(evt) {
-  evt.preventDefault();
-  profileName.textContent = inputName.value;
-  profileDescription.textContent = inputDescription.value;
-  closeModal();
-}
+const cardTemplate = document
+  .querySelector("#card-template")
+  .content.querySelector(".places__item");
 
 function getCardElement(data) {
-  const cardTemplate = document
-    .querySelector("#card-template")
-    .content.querySelector(".places__item");
   const cardElement = cardTemplate.cloneNode(true);
-
   const cardImage = cardElement.querySelector(".card__image");
   const cardTitle = cardElement.querySelector(".card__title");
-
   cardImage.src = data.link;
   cardTitle.textContent = data.name;
   cardImage.alt = data.name;
@@ -91,8 +81,21 @@ function renderCard(data, wrapper) {
 /// EVENT HANDLERS
 /////////////
 
-editButton.addEventListener("click", openModal);
-closeButton.addEventListener("click", closeModal);
-form.addEventListener("submit", handleFormSubmit);
+editProfileButton.addEventListener("click", () => {
+  inputName.value = profileName.textContent;
+  inputDescription.value = profileDescription.textContent;
+  openModal(profileEditModal);
+});
+
+closeButton.addEventListener("click", () => {
+  closeModal(profileEditModal);
+});
+
+profileForm.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+  profileName.textContent = inputName.value;
+  profileDescription.textContent = inputDescription.value;
+  closeModal(profileEditModal);
+});
 
 initialCards.forEach((data) => renderCard(data, placesList));
