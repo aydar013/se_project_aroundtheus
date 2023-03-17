@@ -32,10 +32,8 @@ const profileDescription = document.querySelector(".profile__subtitle");
 
 //// MODALS
 
-const modal = document.querySelector(".modal");
-const profileContainer = document.querySelector(".modal__container");
-const profileForm = document.querySelector(".modal__form");
 const profileEditModal = document.querySelector("#profile-edit-modal");
+const profileForm = profileEditModal.querySelector(".modal__form");
 const cardAddModal = document.querySelector("#card-add-modal");
 const addForm = document.querySelector(".add-form");
 
@@ -77,6 +75,12 @@ function openModal(modal) {
   modal.classList.add("modal_opened");
 }
 
+function fillProfileForm() {
+  inputName.value = profileName.textContent;
+  inputDescription.value = profileDescription.textContent;
+  openModal(profileEditModal);
+}
+
 const cardTemplate = document
   .querySelector("#card-template")
   .content.querySelector(".places__item");
@@ -96,7 +100,6 @@ function getCardElement(data) {
 
   const deleteButton = cardElement.querySelector(".card__delete-button");
   deleteButton.addEventListener("click", () => {
-    deleteButton.classList.toggle("card__delete-button");
     cardElement.remove();
   });
 
@@ -110,19 +113,11 @@ function getCardElement(data) {
   return cardElement;
 }
 
-function renderCard(data, wrapper) {
-  wrapper.append(getCardElement(data));
-}
-
 /////////////
 /// EVENT HANDLERS
 /////////////
 
-editProfileButton.addEventListener("click", () => {
-  inputName.value = profileName.textContent;
-  inputDescription.value = profileDescription.textContent;
-  openModal(profileEditModal);
-});
+editProfileButton.addEventListener("click", fillProfileForm);
 
 addProfileButton.addEventListener("click", () => openModal(cardAddModal));
 
@@ -141,7 +136,7 @@ profileForm.addEventListener("submit", (evt) => {
   closeModal(profileEditModal);
 });
 
-initialCards.forEach((data) => renderCard(data, placesList));
+initialCards.reverse().forEach((data) => renderCard(data, placesList));
 
 function renderCard(data, placesList) {
   const newElement = getCardElement(data);
@@ -154,4 +149,5 @@ addForm.addEventListener("submit", (evt) => {
   const link = cardURLInput.value;
   renderCard({ name, link }, placesList);
   closeModal(cardAddModal);
+  addForm.reset();
 });
