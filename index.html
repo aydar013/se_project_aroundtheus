@@ -43,6 +43,60 @@
         </form>
       </div>
     </div>
+    <div class="modal" id="card-add-modal">
+      <div class="modal__container">
+        <button class="modal__close-button"></button>
+        <h1 class="modal__heading">New place</h1>
+        <form class="modal__form add-form">
+          <input
+            class="modal__form-input"
+            id="card-title-input"
+            type="text"
+            placeholder="Title"
+            name="name"
+            required
+          />
+          <input
+            class="modal__form-input"
+            id="card-url-input"
+            type="text"
+            placeholder="Image URL"
+            name="description"
+            required
+          />
+          <button class="modal__submit-button" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+    <!-- <div class="modal" id="image-preview-modal">
+      <div class="modal__container modal__container_type_image">
+        <button class="modal__close-button"></button>
+        <img
+          src="#"
+          class="modal__preview-image"
+          id="modal-image"
+          alt="image preview"
+        />
+        <h3 class="modal__image-caption"></h3>
+      </div>
+    </div> -->
+    <div class="modal modal_type_image" id="preview-image-modal">
+      <div class="modal__preview-container">
+        <button
+          type="button"
+          class="modal__close-button"
+          id="preview-close-button"
+        ></button>
+        <img
+          src="#"
+          class="modal__preview-image"
+          id="modal-image"
+          alt="modal-preview-image"
+        />
+
+        <h3 class="modal__preview-footer"></h3>
+      </div>
+    </div>
     <div class="page-content">
       <header class="header page__section">
         <img
@@ -76,6 +130,7 @@
     <template id="card-template">
       <li class="places__item card">
         <img alt="alt" class="card__image" src="#" />
+        <button class="card__delete-button" type="button"></button>
         <div class="card__description">
           <h2 class="card__title"></h2>
           <button class="card__like-button" type="button"></button>
