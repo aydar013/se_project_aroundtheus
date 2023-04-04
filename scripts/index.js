@@ -70,13 +70,13 @@ const placesList = document.querySelector(".gallery__cards");
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
   document.removeEventListener("keyup", closeModalWithEscButton);
-  modal.removeEventListener("click", closeModalWithOverlayClick);
+  modal.removeEventListener("mousedown", closeModalWithOverlayClick);
 }
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
   document.addEventListener("keyup", closeModalWithEscButton);
-  modal.addEventListener("click", closeModalWithOverlayClick);
+  modal.addEventListener("mousedown", closeModalWithOverlayClick);
 }
 
 function closeModalWithEscButton(e) {
@@ -87,16 +87,12 @@ function closeModalWithEscButton(e) {
 }
 
 function closeModalWithOverlayClick(e) {
-  if (
-    e.target.classList.contains("modal") ||
-    e.target.classList.contains("modal__close-button")
-  ) {
-    const activeModal = document.querySelector(".modal_opened");
-    closeModal(activeModal);
+  if (e.target === e.currentTarget) {
+    closeModal(e.currentTarget);
   }
 }
 
-function fillProfileForm() {
+function openProfileModal() {
   inputName.value = profileName.textContent;
   inputDescription.value = profileDescription.textContent;
   openModal(profileEditModal);
@@ -138,7 +134,7 @@ function getCardElement(data) {
 /// EVENT HANDLERS
 /////////////
 
-editProfileButton.addEventListener("click", fillProfileForm);
+editProfileButton.addEventListener("click", openProfileModal);
 
 addProfileButton.addEventListener("click", () => openModal(cardAddModal));
 
