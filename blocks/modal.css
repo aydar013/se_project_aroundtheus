@@ -54,7 +54,7 @@
 }
 
 .modal__heading {
-  padding-bottom: 47px;
+  padding-bottom: 54px;
   margin: 0;
   font-size: 24px;
   line-height: 29px;
@@ -69,30 +69,26 @@
 }
 
 .modal__form-input {
-  padding: 7px 0 13px 0;
+  padding-bottom: 13px;
   margin: 0 auto;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   width: 100%;
   box-sizing: border-box;
-}
 
-.modal__form-input:not(:last-of-type) {
-  margin-bottom: 23px;
+  margin-bottom: 30px;
 }
 
 .modal__form-input::placeholder {
-  color: #000;
+  color: rgba(0, 0, 0, 0.2);
   font-size: 14px;
   line-height: 17px;
-  padding: 0;
-  margin-bottom: 13px;
 }
 
 .modal__submit-button {
   color: #fff;
   background-color: #000;
-  margin-top: 48px;
+  margin-top: 25px;
   height: 50px;
   border-radius: 2px;
   font-size: 18px;
@@ -106,8 +102,41 @@
   opacity: 0.8;
 }
 
+.modal__error {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #ff0000;
+  position: absolute;
+  top: 39px;
+  left: 0;
+}
+
+.modal__form-input_error {
+  border-bottom: solid 1px #ff0000;
+}
+
+.modal__label {
+  position: relative;
+}
+
+.modal__error-visible {
+  display: block;
+}
+
 .modal_type_image {
   background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal__submit-button_disabled {
+  background-color: #fff;
+  cursor: not-allowed;
+  color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.modal__submit-button_disabled:hover {
+  opacity: 1;
 }
 
 .modal__preview-image {
@@ -158,7 +187,6 @@
     height: 26px;
     right: 10px;
     top: -55px;
-    /* position: absolute; */
   }
   .modal__submit-button {
     font-size: 14px;

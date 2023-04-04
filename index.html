@@ -22,23 +22,36 @@
       <div class="modal__container">
         <button class="modal__close-button"></button>
         <h2 class="modal__heading">Edit profile</h2>
-        <form class="modal__form">
-          <input
-            class="modal__form-input"
-            id="profile-title-input"
-            type="text"
-            placeholder="Name"
-            name="name"
-            required
-          />
-          <input
-            class="modal__form-input"
-            id="profile-description-input"
-            type="text"
-            placeholder="Description"
-            name="description"
-            required
-          />
+        <form class="modal__form" id="profile-edit-form">
+          <label class="modal__label">
+            <input
+              class="modal__form-input"
+              id="profile-title-input"
+              type="text"
+              placeholder="Name"
+              name="name"
+              minlength="2"
+              maxlength="40"
+              required
+            />
+            <span class="modal__error" id="profile-title-input-error"></span>
+          </label>
+          <label class="modal__label">
+            <input
+              class="modal__form-input"
+              id="profile-description-input"
+              type="text"
+              placeholder="Description"
+              name="description"
+              minlength="2"
+              maxlength="200"
+              required
+            />
+            <span
+              class="modal__error"
+              id="profile-description-input-error"
+            ></span>
+          </label>
           <button class="modal__submit-button" type="submit">Save</button>
         </form>
       </div>
@@ -48,23 +61,37 @@
         <button class="modal__close-button"></button>
         <h2 class="modal__heading">New place</h2>
         <form class="modal__form add-form">
-          <input
-            class="modal__form-input"
-            id="card-title-input"
-            type="text"
-            placeholder="Title"
-            name="name"
-            required
-          />
-          <input
-            class="modal__form-input"
-            id="card-url-input"
-            type="text"
-            placeholder="Image URL"
-            name="description"
-            required
-          />
-          <button class="modal__submit-button" type="submit">Save</button>
+          <label class="modal__label">
+            <input
+              class="modal__form-input"
+              id="card-title-input"
+              type="text"
+              placeholder="Title"
+              name="title"
+              minlength="1"
+              maxlength="30"
+              required
+            />
+            <span class="modal__error" id="card-title-input-error"></span>
+          </label>
+          <label class="modal__label">
+            <input
+              class="modal__form-input"
+              id="card-url-input"
+              type="url"
+              placeholder="Image URL"
+              name="url"
+              required
+            />
+            <span class="modal__error" id="card-url-input-error"></span>
+          </label>
+          <button
+            class="modal__submit-button modal__submit-button_disabled"
+            type="submit"
+            disabled
+          >
+            Save
+          </button>
         </form>
       </div>
     </div>
@@ -97,14 +124,14 @@
       <main class="content">
         <section class="profile page__section">
           <img
-            src="images/jacques-cousteau.jpg"
+            src="images/Aidarrr.jpg"
             alt="jacques cousteau picture"
             class="profile__image"
           />
           <div class="profile__grid">
-            <h1 class="profile__title">Jacques Cousteau</h1>
+            <h1 class="profile__title">Aidar Shaidullin</h1>
             <button class="profile__edit-button" type="button"></button>
-            <p class="profile__subtitle">Explorer</p>
+            <p class="profile__subtitle">Truck driver</p>
           </div>
           <button class="profile__add-button" type="button"></button>
         </section>
@@ -127,5 +154,6 @@
       </li>
     </template>
     <script src="./scripts/index.js" defer></script>
+    <script src="./scripts/validation.js" defer></script>
   </body>
 </html>
