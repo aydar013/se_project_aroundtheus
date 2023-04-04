@@ -24,12 +24,12 @@ function hasInvalidInput(inputList) {
   return !inputList.every((inputEl) => inputEl.validity.valid);
 }
 
-function disableButton(submitButton, { inactiveButtonClass }) {
+function disableButton(submitButton, inactiveButtonClass) {
   submitButton.classList.add(inactiveButtonClass);
   submitButton.disabled = true;
 }
 
-function enableButton(submitButton, { inactiveButtonClass }) {
+function enableButton(submitButton, inactiveButtonClass) {
   submitButton.classList.remove(inactiveButtonClass);
   submitButton.disabled = false;
 }
@@ -49,12 +49,14 @@ function setEventListeners(formEl, options) {
   inputEls.forEach((inputEl) => {
     inputEl.addEventListener("input", (e) => {
       checkInputValidity(formEl, inputEl, options);
-      toggleButtonState(inputEls, submitButton, options);
+      toggleButtonState(inputEls, submitButton, options.inactiveButtonClass);
     });
 
     formEl.addEventListener("reset", () => {
-      disableButton(submitButton, options);
+      disableButton(submitButton, options.inactiveButtonClass);
     });
+
+    toggleButtonState(inputEls, submitButton, options.inactiveButtonClass);
   });
 }
 
