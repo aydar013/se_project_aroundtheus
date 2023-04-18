@@ -1,3 +1,9 @@
+import FormValidator from "./FormValidator.js";
+
+import Card from "./Card.js";
+
+import { openModal, closeModal, previewModal, previewImage } from "./Utils.js";
+
 const initialCards = [
   {
     name: "Miami, FL",
@@ -25,22 +31,26 @@ const initialCards = [
   },
 ];
 
-//// PROFILE
+const data = {
+  name: "Miami, FL",
+  link: "https://media.istockphoto.com/id/802893644/photo/aerial-view-of-downtown-miami-florida.jpg?s=612x612&w=0&k=20&c=QwdSYtoeB-9xTvqgbpnM9aCaRf_39rw8bVw7LsszSGg=",
+};
+const card = new Card(data, "#card-template");
+card.getView();
+
+//// VARIABLES
 
 const profileName = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__subtitle");
-
-//// MODALS
-
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const profileForm = profileEditModal.querySelector(".modal__form");
 const cardAddModal = document.querySelector("#card-add-modal");
 const addForm = document.querySelector(".add-form");
 
-const previewModal = document.querySelector("#preview-image-modal");
-const previewImage = document.querySelector(".modal__preview-image");
+// const previewModal = document.querySelector("#preview-image-modal");
+// const previewImage = document.querySelector(".modal__preview-image");
 
-const previewFooter = document.querySelector(".modal__preview-footer");
+// const previewFooter = document.querySelector(".modal__preview-footer");
 
 //// INPUTS AND BUTTONS
 
@@ -67,30 +77,47 @@ const placesList = document.querySelector(".gallery__cards");
 /// FUNCTIONS
 /////////////
 
-function closeModal(modal) {
-  modal.classList.remove("modal_opened");
-  document.removeEventListener("keyup", closeModalWithEscButton);
-  modal.removeEventListener("mousedown", closeModalWithOverlayClick);
-}
+const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__form-input",
+  submitButtonSelector: ".modal__submit-button",
+  inactiveButtonClass: "modal__submit-button_disabled",
+  inputErrorClass: "modal__form-input_error",
+  errorClass: "modal__error-visible",
+};
 
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-  document.addEventListener("keyup", closeModalWithEscButton);
-  modal.addEventListener("mousedown", closeModalWithOverlayClick);
-}
+const editFormEl = profileEditModal.querySelector(".modal__form");
+const editFormValidator = new FormValidator(config, editFormEl);
+editFormValidator.enableValidation();
 
-function closeModalWithEscButton(e) {
-  if (e.key === "Escape") {
-    const activeModal = document.querySelector(".modal_opened");
-    closeModal(activeModal);
-  }
-}
+const addFormEl = cardAddModal.querySelector(".modal__form");
+const addFormValidator = new FormValidator(config, addFormEl);
+addFormValidator.enableValidation();
 
-function closeModalWithOverlayClick(e) {
-  if (e.target === e.currentTarget) {
-    closeModal(e.currentTarget);
-  }
-}
+// function closeModal(modal) {
+//   modal.classList.remove("modal_opened");
+//   document.removeEventListener("keyup", closeModalWithEscButton);
+//   modal.removeEventListener("mousedown", closeModalWithOverlayClick);
+// }
+
+// function openModal(modal) {
+//   modal.classList.add("modal_opened");
+//   document.addEventListener("keyup", closeModalWithEscButton);
+//   modal.addEventListener("mousedown", closeModalWithOverlayClick);
+// }
+
+// function closeModalWithEscButton(e) {
+//   if (e.key === "Escape") {
+//     const activeModal = document.querySelector(".modal_opened");
+//     closeModal(activeModal);
+//   }
+// }
+
+// function closeModalWithOverlayClick(e) {
+//   if (e.target === e.currentTarget) {
+//     closeModal(e.currentTarget);
+//   }
+// }
 
 function openProfileModal() {
   inputName.value = profileName.textContent;
