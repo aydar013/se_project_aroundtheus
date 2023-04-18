@@ -46,14 +46,6 @@ const profileEditModal = document.querySelector("#profile-edit-modal");
 const profileForm = profileEditModal.querySelector(".modal__form");
 const cardAddModal = document.querySelector("#card-add-modal");
 const addForm = document.querySelector(".add-form");
-
-// const previewModal = document.querySelector("#preview-image-modal");
-// const previewImage = document.querySelector(".modal__preview-image");
-
-// const previewFooter = document.querySelector(".modal__preview-footer");
-
-//// INPUTS AND BUTTONS
-
 const editProfileButton = document.querySelector(".profile__edit-button");
 const addProfileButton = document.querySelector(".profile__add-button");
 const profileEditCloseBtn = profileEditModal.querySelector(
@@ -63,14 +55,10 @@ const cardAddCloseBtn = cardAddModal.querySelector(".modal__close-button");
 const previewCloseModalBtn = previewModal.querySelector(
   "#preview-close-button"
 );
-
 const inputName = document.querySelector("#profile-title-input");
 const inputDescription = document.querySelector("#profile-description-input");
-
 const cardTitleInput = addForm.querySelector("#card-title-input");
 const cardURLInput = addForm.querySelector("#card-url-input");
-
-//// WRAPPERS
 const placesList = document.querySelector(".gallery__cards");
 
 /////////////
@@ -93,31 +81,6 @@ editFormValidator.enableValidation();
 const addFormEl = cardAddModal.querySelector(".modal__form");
 const addFormValidator = new FormValidator(config, addFormEl);
 addFormValidator.enableValidation();
-
-// function closeModal(modal) {
-//   modal.classList.remove("modal_opened");
-//   document.removeEventListener("keyup", closeModalWithEscButton);
-//   modal.removeEventListener("mousedown", closeModalWithOverlayClick);
-// }
-
-// function openModal(modal) {
-//   modal.classList.add("modal_opened");
-//   document.addEventListener("keyup", closeModalWithEscButton);
-//   modal.addEventListener("mousedown", closeModalWithOverlayClick);
-// }
-
-// function closeModalWithEscButton(e) {
-//   if (e.key === "Escape") {
-//     const activeModal = document.querySelector(".modal_opened");
-//     closeModal(activeModal);
-//   }
-// }
-
-// function closeModalWithOverlayClick(e) {
-//   if (e.target === e.currentTarget) {
-//     closeModal(e.currentTarget);
-//   }
-// }
 
 function openProfileModal() {
   inputName.value = profileName.textContent;
