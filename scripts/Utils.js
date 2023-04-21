@@ -1,7 +1,3 @@
-export const previewModal = document.querySelector("#preview-image-modal");
-export const previewImage = document.querySelector(".modal__preview-image");
-export const previewFooter = document.querySelector(".modal__preview-footer");
-
 export function closeModal(modal) {
   modal.classList.remove("modal_opened");
   document.removeEventListener("keyup", closeModalWithEscButton);

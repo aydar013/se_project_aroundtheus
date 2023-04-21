@@ -2,7 +2,7 @@ import FormValidator from "./FormValidator.js";
 
 import Card from "./Card.js";
 
-import { openModal, closeModal, previewModal, previewImage } from "./Utils.js";
+import { openModal, closeModal } from "./utils.js";
 
 const initialCards = [
   {
@@ -31,13 +31,6 @@ const initialCards = [
   },
 ];
 
-const data = {
-  name: "Miami, FL",
-  link: "https://media.istockphoto.com/id/802893644/photo/aerial-view-of-downtown-miami-florida.jpg?s=612x612&w=0&k=20&c=QwdSYtoeB-9xTvqgbpnM9aCaRf_39rw8bVw7LsszSGg=",
-};
-const card = new Card(data, "#card-template");
-card.getView();
-
 //// VARIABLES
 
 const profileName = document.querySelector(".profile__title");
@@ -46,6 +39,9 @@ const profileEditModal = document.querySelector("#profile-edit-modal");
 const profileForm = profileEditModal.querySelector(".modal__form");
 const cardAddModal = document.querySelector("#card-add-modal");
 const addForm = document.querySelector(".add-form");
+const previewModal = document.querySelector("#preview-image-modal");
+const previewImage = document.querySelector(".modal__preview-image");
+const previewFooter = document.querySelector(".modal__preview-footer");
 const editProfileButton = document.querySelector(".profile__edit-button");
 const addProfileButton = document.querySelector(".profile__add-button");
 const profileEditCloseBtn = profileEditModal.querySelector(
@@ -59,14 +55,12 @@ const inputName = document.querySelector("#profile-title-input");
 const inputDescription = document.querySelector("#profile-description-input");
 const cardTitleInput = addForm.querySelector("#card-title-input");
 const cardURLInput = addForm.querySelector("#card-url-input");
+
 const placesList = document.querySelector(".gallery__cards");
 
-/////////////
-/// FUNCTIONS
-/////////////
+const cardSelector = "#card-template";
 
-const config = {
-  formSelector: ".modal__form",
+const validationSettings = {
   inputSelector: ".modal__form-input",
   submitButtonSelector: ".modal__submit-button",
   inactiveButtonClass: "modal__submit-button_disabled",
@@ -75,49 +69,21 @@ const config = {
 };
 
 const editFormEl = profileEditModal.querySelector(".modal__form");
-const editFormValidator = new FormValidator(config, editFormEl);
+const editFormValidator = new FormValidator(validationSettings, editFormEl);
 editFormValidator.enableValidation();
 
 const addFormEl = cardAddModal.querySelector(".modal__form");
-const addFormValidator = new FormValidator(config, addFormEl);
+const addFormValidator = new FormValidator(validationSettings, addFormEl);
 addFormValidator.enableValidation();
+
+/////////////
+/// FUNCTIONS
+/////////////
 
 function openProfileModal() {
   inputName.value = profileName.textContent;
   inputDescription.value = profileDescription.textContent;
   openModal(profileEditModal);
-}
-
-const cardTemplate = document
-  .querySelector("#card-template")
-  .content.querySelector(".places__item");
-
-function getCardElement(data) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImage = cardElement.querySelector(".card__image");
-  const cardTitle = cardElement.querySelector(".card__title");
-  cardImage.src = data.link;
-  cardTitle.textContent = data.name;
-  cardImage.alt = data.name;
-
-  const likeButton = cardElement.querySelector(".card__like-button");
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-button_active");
-  });
-
-  const deleteButton = cardElement.querySelector(".card__delete-button");
-  deleteButton.addEventListener("click", () => {
-    cardElement.remove();
-  });
-
-  cardImage.addEventListener("click", () => {
-    previewImage.src = data.link;
-    previewImage.alt = data.name;
-    previewFooter.textContent = data.name;
-    openModal(previewModal);
-  });
-
-  return cardElement;
 }
 
 /////////////
@@ -146,8 +112,9 @@ profileForm.addEventListener("submit", (evt) => {
 initialCards.reverse().forEach((data) => renderCard(data, placesList));
 
 function renderCard(data, placesList) {
-  const newElement = getCardElement(data);
-  placesList.prepend(newElement);
+  const card = new Card(data, cardSelector);
+
+  placesList.prepend(card.getView());
 }
 
 addForm.addEventListener("submit", (evt) => {
@@ -157,4 +124,5 @@ addForm.addEventListener("submit", (evt) => {
   renderCard({ name, link }, placesList);
   closeModal(cardAddModal);
   addForm.reset();
+  addFormValidator.toggleButtonState();
 });
