@@ -1,9 +1,10 @@
-import { openModal } from "./utils.js";
+// import { openModal } from "./utils.js";
 
 export default class Card {
-  constructor(data, cardSelector) {
-    this._name = data.name;
-    this._link = data.link;
+  constructor({ name, link }, cardSelector, handleCardClick) {
+    this._name = name;
+    this._link = link;
+    this._handleCardClick = handleCardClick;
 
     this._cardSelector = cardSelector;
   }
@@ -13,6 +14,10 @@ export default class Card {
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
       .cloneNode(true);
+  }
+
+  _handleCardClick(name, link) {
+    imageModal.openModal(name, link, alt);
   }
 
   _setEventListeners() {
@@ -33,9 +38,9 @@ export default class Card {
     // preview image
     this._element
       .querySelector(".card__image")
-      .addEventListener("click", () => {
-        this._handlePreviewImage();
-      });
+      .addEventListener("click", () =>
+        this._handleCardClick(this._name, this._link, this._alt)
+      );
   }
 
   _handleLikeIcon = () => {
@@ -47,16 +52,16 @@ export default class Card {
     this._element = null;
   };
 
-  _handlePreviewImage = () => {
-    const previewModal = document.querySelector("#preview-image-modal");
-    const previewImage = document.querySelector(".modal__preview-image");
-    const previewFooter = document.querySelector(".modal__preview-footer");
-    previewImage.src = this._link;
-    previewImage.alt = this._name;
-    previewFooter.textContent = this._name;
+  // _handlePreviewImage = () => {
+  //   const previewModal = document.querySelector("#preview-image-modal");
+  //   const previewImage = document.querySelector(".modal__preview-image");
+  //   const previewFooter = document.querySelector(".modal__preview-footer");
+  //   previewImage.src = this._link;
+  //   previewImage.alt = this._name;
+  //   previewFooter.textContent = this._name;
 
-    openModal(previewModal);
-  };
+  //   openModal(previewModal);
+  // };
 
   getView() {
     this._element = this._getTemplate();

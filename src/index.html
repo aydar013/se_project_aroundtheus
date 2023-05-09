@@ -13,7 +13,6 @@
       name="keywords"
       content="picture, sunset, sunrise, river, forest, travel, mountains"
     />
-    <link rel="stylesheet" href="./pages/index.css" />
     <link rel="icon" type="image/icon" href="favicon.ico" />
     <title>Around the USA</title>
   </head>
@@ -110,7 +109,7 @@
     <div class="page-content">
       <header class="header page__section">
         <img
-          src="./images/around-logo.svg"
+          src="<%=require('./images/around-logo.svg')%>"
           alt="around the U.S logo"
           class="header__logo"
         />
@@ -118,7 +117,7 @@
       <main class="content">
         <section class="profile page__section">
           <img
-            src="images/Aidarrr.jpg"
+            src="<%= require('./images/Aidarrr.jpg')%>"
             alt="jacques cousteau picture"
             class="profile__image"
           />
@@ -147,6 +146,5 @@
         </div>
       </li>
     </template>
-    <script type="module" src="./scripts/index.js" defer></script>
   </body>
 </html>
