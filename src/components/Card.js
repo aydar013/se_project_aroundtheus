@@ -14,10 +14,6 @@ export default class Card {
       .cloneNode(true);
   }
 
-  _handleCardClick(name, link) {
-    imageModal.openModal(name, link, alt);
-  }
-
   _setEventListeners() {
     // like button
     this._likeButton = this._element.querySelector(".card__like-button");
@@ -53,11 +49,11 @@ export default class Card {
   getView() {
     this._element = this._getTemplate();
 
-    this._cardImage = this._element.querySelector(".card__image");
-    this._cardTitle = this._element.querySelector(".card__title");
-    this._cardImage.src = this._link;
-    this._cardTitle.textContent = this._name;
-    this._cardImage.alt = `Photo of ${this._name}`;
+    const cardImage = this._element.querySelector(".card__image");
+    const cardTitle = this._element.querySelector(".card__title");
+    cardImage.src = this._link;
+    cardTitle.textContent = this._name;
+    cardImage.alt = `Photo of ${this._name}`;
 
     this._setEventListeners();
 

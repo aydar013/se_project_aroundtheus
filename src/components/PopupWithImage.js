@@ -18,8 +18,4 @@ export default class PopupWithImage extends Popup {
     this._modalImageFooter.textContent = name;
     super.openModal();
   }
-
-  closeModal() {
-    super.closeModal();
-  }
 }

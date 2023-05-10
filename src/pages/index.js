@@ -108,6 +108,7 @@ function handleCardFormSubmit(data) {
   const cardElement = renderCard(data, "#card-template");
   cardSection.addItem(cardElement);
   cardAddPopup.closeModal();
+  console.log(cardElement);
 }
 
 // picture preview
@@ -155,7 +156,7 @@ editProfileButton.addEventListener("click", () => {
 
   editPopup.openModal();
 
-  editFormValidator.toggleButtonState();
+  editFormValidator.setInitialState();
 });
 // load initial cards
 

@@ -56,7 +56,6 @@ export default class FormValidator {
   _setEventListeners() {
     this._inputList = [...this._form.querySelectorAll(this._inputSelector)];
     this._submitButton = this._form.querySelector(this._submitButtonSelector);
-    this.toggleButtonState();
     this._inputList.forEach((inputEl) => {
       inputEl.addEventListener("input", (e) => {
         this._checkInputValidity(inputEl);
@@ -66,9 +65,9 @@ export default class FormValidator {
   }
 
   setInitialState() {
+    this.toggleButtonState();
     this._inputList.forEach((inputEl) => {
       this._hideInputError(inputEl);
-      this.toggleButtonState();
     });
   }
 
