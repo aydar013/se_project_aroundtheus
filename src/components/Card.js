@@ -1,9 +1,7 @@
-// import { openModal } from "./utils.js";
-
 export default class Card {
-  constructor({ name, link }, cardSelector, handleCardClick) {
-    this._name = name;
-    this._link = link;
+  constructor(data, cardSelector, handleCardClick) {
+    this._name = data.name;
+    this._link = data.link;
     this._handleCardClick = handleCardClick;
 
     this._cardSelector = cardSelector;
@@ -52,25 +50,14 @@ export default class Card {
     this._element = null;
   };
 
-  // _handlePreviewImage = () => {
-  //   const previewModal = document.querySelector("#preview-image-modal");
-  //   const previewImage = document.querySelector(".modal__preview-image");
-  //   const previewFooter = document.querySelector(".modal__preview-footer");
-  //   previewImage.src = this._link;
-  //   previewImage.alt = this._name;
-  //   previewFooter.textContent = this._name;
-
-  //   openModal(previewModal);
-  // };
-
   getView() {
     this._element = this._getTemplate();
 
-    const cardImage = this._element.querySelector(".card__image");
-    const cardTitle = this._element.querySelector(".card__title");
-    cardImage.src = this._link;
-    cardTitle.textContent = this._name;
-    cardImage.alt = `Photo of ${this._name}`;
+    this._cardImage = this._element.querySelector(".card__image");
+    this._cardTitle = this._element.querySelector(".card__title");
+    this._cardImage.src = this._link;
+    this._cardTitle.textContent = this._name;
+    this._cardImage.alt = `Photo of ${this._name}`;
 
     this._setEventListeners();
 
