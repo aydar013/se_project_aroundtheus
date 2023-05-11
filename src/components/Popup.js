@@ -5,17 +5,16 @@ export default class Popup {
 
   openModal() {
     this._modalElement.classList.add("modal_opened");
-    document.addEventListener("keyup", (e) => this._handleEscClose(e));
-    this._modalElement.addEventListener("mousedown", (e) =>
-      this._handleOverlayClose(e)
-    );
+    document.addEventListener("keyup", this._handleEscClose);
+    this._modalElement.addEventListener("mousedown", this._handleOverlayClose);
   }
 
   closeModal() {
     this._modalElement.classList.remove("modal_opened");
-    document.removeEventListener("keyup", (e) => this._handleEscClose(e));
-    this._modalElement.removeEventListener("mousedown", (e) =>
-      this._handleOverlayClose(e)
+    document.removeEventListener("keyup", this._handleEscClose);
+    this._modalElement.removeEventListener(
+      "mousedown",
+      this._handleOverlayClose
     );
   }
 
@@ -25,11 +24,11 @@ export default class Popup {
     }
   };
 
-  _handleOverlayClose(e) {
+  _handleOverlayClose = (e) => {
     if (e.target === e.currentTarget) {
       this.closeModal();
     }
-  }
+  };
 
   setEventListeners() {
     this._modalElement
