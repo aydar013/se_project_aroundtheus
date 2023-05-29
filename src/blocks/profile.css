@@ -84,6 +84,24 @@
   grid-template-columns: 380px auto;
 }
 
+.profile__image-edit {
+  background: transparent url(../images/avatar\ edit.svg) center no-repeat;
+  border: none;
+  position: absolute;
+  cursor: pointer;
+  opacity: 0;
+  width: 120px;
+  height: 120px;
+  top: 36px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.profile__image-edit:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
 @media screen and (max-width: 1100px) {
   .profile {
     width: calc(100% - 40px);
@@ -126,5 +144,8 @@
     width: 18px;
     height: 18px;
     margin: 0;
+  }
+  .profile__image-edit {
+    top: 0;
   }
 }

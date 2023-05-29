@@ -17,6 +17,7 @@
     <title>Around the USA</title>
   </head>
   <body class="page">
+    <!-- edit profile -->
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
         <button class="modal__close-button"></button>
@@ -55,6 +56,8 @@
         </form>
       </div>
     </div>
+
+    <!-- add card -->
     <div class="modal" id="card-add-modal">
       <div class="modal__container">
         <button class="modal__close-button"></button>
@@ -89,6 +92,37 @@
       </div>
     </div>
 
+    <!-- update avatar picture -->
+
+    <div class="modal" id="avatar-modal">
+      <div class="modal__container modal__container-avatar">
+        <button class="modal__close-button"></button>
+        <h2 class="modal__heading">Change Profile Picture</h2>
+        <form class="modal__form avatar-form" id="avatar-modal-form">
+          <label class="modal__label">
+            <input
+              type="url"
+              name="avatar"
+              class="modal__form-input"
+              id="avatar-image-url"
+              placeholder="Image URL"
+              required
+            />
+            <span class="modal__error" id="avatar-image-url-error"></span>
+          </label>
+          <button
+            class="modal__submit-button"
+            id="avatar-save-btn"
+            type="submit"
+          >
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- preview card image -->
+
     <div class="modal modal_type_image" id="preview-image-modal">
       <div class="modal__preview-container">
         <button
@@ -106,6 +140,27 @@
         <h3 class="modal__preview-footer"></h3>
       </div>
     </div>
+
+    <!-- confirm modal -->
+
+    <div class="confirm-popup modal" id="delete-card">
+      <div class="modal__container modal__confirm-container">
+        <button
+          type="button"
+          class="modal__close-button"
+          id="delete-confirm-close"
+        ></button>
+        <h2 class="confirm-popup__title">Are you sure?</h2>
+        <form class="modal__form form confirm-popup__form" id="delete-form">
+          <button type="submit" class="modal__submit-button" id="delete-button">
+            Yes
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- main page -->
+
     <div class="page-content">
       <header class="header page__section">
         <img
@@ -121,6 +176,7 @@
             alt="jacques cousteau picture"
             class="profile__image"
           />
+          <button class="profile__image-edit" type="button"></button>
           <div class="profile__grid">
             <h1 class="profile__title">Aidar Shaidullin</h1>
             <button class="profile__edit-button" type="button"></button>
@@ -143,6 +199,7 @@
         <div class="card__description">
           <h2 class="card__title"></h2>
           <button class="card__like-button" type="button"></button>
+          <h3 class="card__like-counter">1</h3>
         </div>
       </li>
     </template>

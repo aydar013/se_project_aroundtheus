@@ -160,6 +160,15 @@
   margin: 0;
 }
 
+.modal__container-delete {
+  background-color: #fff;
+  margin: auto;
+  padding: 36px;
+  border-radius: 10px;
+  position: relative;
+  width: 430px;
+}
+
 @media screen and (max-width: 760px) {
   .modal__container {
     padding: 25px 22px;

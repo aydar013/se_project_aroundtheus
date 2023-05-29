@@ -17,21 +17,136 @@ import {
   editFormEl,
   addFormEl,
 } from "../utils/constants.js";
+import API from "../components/API.js";
+import PopupWithConfirmation from "../components/popupWithConfirmation.js";
 
-// edit profile
+const api = new API({
+  baseURL: "https://around.nomoreparties.co/v1/group-12",
+  headers: {
+    authorization: "5e52fc43-131f-4918-a1c8-3d415b0e6db0",
+    "Content-Type": "application/json",
+  },
+});
 
 const userInfo = new UserInfo({
   name: ".profile__title",
   description: ".profile__subtitle",
+  avatar: ".profile__image",
 });
+
+function createCard(cardData) {
+  const card = new Card(
+    cardData,
+    userId,
+    "#card-template",
+
+    (cardImage, cardTitle) => {
+      popupImage.openModal(cardImage, cardTitle);
+    },
+
+    (cardId) => {
+      if (card.isLiked()) {
+        api
+          .removeCardLike(cardId)
+          .then((data) => {
+            card.updateLikes(data.likes);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        api
+          .addCardLike(cardId)
+          .then((data) => {
+            card.updateLikes(data.likes);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+
+    (cardId) => {
+      deleteCardPopup.openModal();
+      deleteCardPopup.setSubmitAction(() => {
+        deleteCardPopup.renderLoading(true);
+
+        api
+          .deleteCard(cardId)
+          .then(() => {
+            card.deleteCard();
+            deleteCardPopup.close();
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            deleteCardPopup.renderLoading(false);
+          });
+      });
+    }
+  );
+  return card.getView();
+}
+
+const deleteCardPopup = new PopupWithConfirmation(".confirm-popup");
+deleteCardPopup.setEventListeners();
+
+let userId = null;
+
+api
+  .getAPIInfo()
+  .then(([userData, userCards]) => {
+    userId = userData._id;
+    userInfo.getUserInfo(userData);
+    userInfo.setUserAvatar(userData);
+    const cardSection = new Section(
+      {
+        items: userCards,
+        renderer: (cardData) => {
+          const cardElement = createCard(cardData);
+          cardSection.addItem(cardElement);
+        },
+      },
+      ".gallery__cards"
+    );
+    cardSection.renderItems(userCards.reverse());
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const editFormValidator = new FormValidator(validationSettings, editFormEl);
 editFormValidator.enableValidation();
 
-function handleProfileSubmit(inputValues) {
-  userInfo.setUserInfo(inputValues);
-  editPopup.closeModal();
-}
+const addFormValidator = new FormValidator(validationSettings, addFormEl);
+addFormValidator.enableValidation();
+
+const avatarEditModal = document.querySelector("#avatar-modal");
+
+const editAvatarForm = document.querySelector("#avatar-modal-form");
+
+const editAvatarFormValidator = new FormValidator(
+  validationSettings,
+  avatarEditModal
+);
+editAvatarFormValidator.enableValidation();
+
+const popupImage = new PopupWithImage("#preview-image-modal");
+
+const handleProfileSubmit = (inputValues) => {
+  editPopup.renderLoading(true);
+  api
+    .updateUserInfo(inputValues)
+    .then((res) => {
+      userInfo.setUserInfo(res);
+    })
+    .then(() => {
+      editPopup.closeModal();
+      editPopup.renderLoading(false, "Save");
+    })
+    .catch((err) => console.log(`Error: ${err}`));
+};
 
 const editPopup = new PopupWithForm({
   popupSelector: "#profile-edit-modal",
@@ -40,50 +155,53 @@ const editPopup = new PopupWithForm({
 
 // add card
 
-const addFormValidator = new FormValidator(validationSettings, addFormEl);
-addFormValidator.enableValidation();
+const handleCardFormSubmit = (data) => {
+  cardAddPopup.renderLoading(true);
+  api
+    .addNewCard(data)
+    .then((res) => {
+      const cardElement = renderCard(data, "#card-template");
+      cardSection.addItem(cardElement);
+    })
+    .then(() => {
+      cardAddPopup.closeModal();
+      cardAddPopup.renderLoading(false);
+    })
+    .catch((err) => console.log(`Error: ${err}`));
+};
 
 const cardAddPopup = new PopupWithForm({
   popupSelector: "#card-add-modal",
   handleFormSubmit: handleCardFormSubmit,
 });
 
-function handleCardFormSubmit(data) {
-  const cardElement = renderCard(data, "#card-template");
-  cardSection.addItem(cardElement);
-  cardAddPopup.closeModal();
-  console.log(cardSection);
-}
+const openAvatarPopupButton = document.querySelector(".profile__image-edit");
 
-// picture preview
+openAvatarPopupButton.addEventListener("click", function () {
+  editAvatarPopup.openModal();
+  editAvatarFormValidator.setInitialState();
+});
 
-const popupImage = new PopupWithImage("#preview-image-modal");
+const editAvatarFormSubmitHandler = (data) => {
+  editAvatarPopup.renderLoading(true);
+  api
+    .updateUserAvatar(data)
+    .then((res) => {
+      userInfo.setUserAvatar(res);
+    })
+    .then(() => {
+      editAvatarPopup.closeModal();
+      editAvatarPopup.renderLoading(false, "Save");
+    })
+    .catch((err) => console.log(`Error: ${err}`));
+};
 
-function handleImageClick(cardImage, cardTitle) {
-  popupImage.openModal(cardImage, cardTitle);
-}
+const editAvatarPopup = new PopupWithForm({
+  popupSelector: "#avatar-modal",
+  handleFormSubmit: editAvatarFormSubmitHandler,
+});
 
-function renderCard(data, cardSelector) {
-  const card = new Card(data, cardSelector, handleImageClick);
-  const cardElement = card.getView();
-  return cardElement;
-}
-
-const cardSection = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const cardElement = renderCard(item, "#card-template");
-      cardSection.addItem(cardElement);
-    },
-  },
-  ".gallery__cards"
-);
-
-/////////////
-/// EVENT HANDLERS
-/////////////
-
+editAvatarPopup.setEventListeners();
 cardAddPopup.setEventListeners();
 editPopup.setEventListeners();
 popupImage.setEventListeners();
@@ -102,6 +220,3 @@ editProfileButton.addEventListener("click", () => {
 
   editFormValidator.setInitialState();
 });
-// load initial cards
-
-cardSection.renderItems();
