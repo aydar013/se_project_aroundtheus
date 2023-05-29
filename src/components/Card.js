@@ -90,7 +90,7 @@ export default class Card {
     this._cardLikes = this._element.querySelector(".card__like-counter");
     this.renderLikes();
 
-    if (this._userId === this._ownerId) {
+    if (this._userId !== this._ownerId) {
       this._deleteButton.remove();
     }
 

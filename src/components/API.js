@@ -51,17 +51,17 @@ export default class API {
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
-        description: data.description,
+        about: data.description,
       }),
     }).then(this._handleResponse);
   }
 
-  updateUserAvatar(avatar) {
+  updateUserAvatar() {
     return fetch(`${this._baseURL}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: data.avatar,
+        avatar,
       }),
     }).then(this._handleResponse);
   }

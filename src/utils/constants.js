@@ -67,3 +67,4 @@ export const validationSettings = {
 };
 export const editFormEl = profileEditModal.querySelector(".modal__form");
 export const addFormEl = cardAddModal.querySelector(".modal__form");
+export const avatarEditModal = document.querySelector("#avatar-modal");

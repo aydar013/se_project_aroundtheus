@@ -8,7 +8,6 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/Userinfo.js";
 import Section from "../components/Section.js";
 import {
-  initialCards,
   editProfileButton,
   addProfileButton,
   inputName,
@@ -16,6 +15,7 @@ import {
   validationSettings,
   editFormEl,
   addFormEl,
+  avatarEditModal,
 } from "../utils/constants.js";
 import API from "../components/API.js";
 import PopupWithConfirmation from "../components/popupWithConfirmation.js";
@@ -75,7 +75,7 @@ function createCard(cardData) {
           .deleteCard(cardId)
           .then(() => {
             card.deleteCard();
-            deleteCardPopup.close();
+            deleteCardPopup.closeModal();
           })
           .catch((err) => {
             console.log(err);
@@ -94,23 +94,24 @@ deleteCardPopup.setEventListeners();
 
 let userId = null;
 
+const cardSection = new Section(
+  {
+    renderer: (item) => {
+      const cardElement = createCard(item, "#card-template");
+      cardSection.addItem(cardElement);
+    },
+  },
+  ".gallery__cards"
+);
+
 api
   .getAPIInfo()
   .then(([userData, userCards]) => {
     userId = userData._id;
-    userInfo.getUserInfo(userData);
+    userInfo.setUserInfo(userData);
     userInfo.setUserAvatar(userData);
-    const cardSection = new Section(
-      {
-        items: userCards,
-        renderer: (cardData) => {
-          const cardElement = createCard(cardData);
-          cardSection.addItem(cardElement);
-        },
-      },
-      ".gallery__cards"
-    );
-    cardSection.renderItems(userCards.reverse());
+
+    cardSection.renderItems(userCards);
   })
   .catch((err) => {
     console.log(err);
@@ -121,10 +122,6 @@ editFormValidator.enableValidation();
 
 const addFormValidator = new FormValidator(validationSettings, addFormEl);
 addFormValidator.enableValidation();
-
-const avatarEditModal = document.querySelector("#avatar-modal");
-
-const editAvatarForm = document.querySelector("#avatar-modal-form");
 
 const editAvatarFormValidator = new FormValidator(
   validationSettings,
@@ -153,14 +150,12 @@ const editPopup = new PopupWithForm({
   handleFormSubmit: handleProfileSubmit,
 });
 
-// add card
-
 const handleCardFormSubmit = (data) => {
   cardAddPopup.renderLoading(true);
   api
     .addNewCard(data)
     .then((res) => {
-      const cardElement = renderCard(data, "#card-template");
+      const cardElement = createCard(res, "#card-template");
       cardSection.addItem(cardElement);
     })
     .then(() => {
@@ -176,11 +171,6 @@ const cardAddPopup = new PopupWithForm({
 });
 
 const openAvatarPopupButton = document.querySelector(".profile__image-edit");
-
-openAvatarPopupButton.addEventListener("click", function () {
-  editAvatarPopup.openModal();
-  editAvatarFormValidator.setInitialState();
-});
 
 const editAvatarFormSubmitHandler = (data) => {
   editAvatarPopup.renderLoading(true);
@@ -201,6 +191,8 @@ const editAvatarPopup = new PopupWithForm({
   handleFormSubmit: editAvatarFormSubmitHandler,
 });
 
+////////// EVENT LISTENERS
+
 editAvatarPopup.setEventListeners();
 cardAddPopup.setEventListeners();
 editPopup.setEventListeners();
@@ -219,4 +211,9 @@ editProfileButton.addEventListener("click", () => {
   editPopup.openModal();
 
   editFormValidator.setInitialState();
+});
+
+openAvatarPopupButton.addEventListener("click", function () {
+  editAvatarPopup.openModal();
+  editAvatarFormValidator.setInitialState();
 });
