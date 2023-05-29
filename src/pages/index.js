@@ -5,7 +5,7 @@ import Card from "../components/Card.js";
 import "./index.css";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import UserInfo from "../components/Userinfo.js";
+import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 import {
   editProfileButton,
@@ -17,8 +17,8 @@ import {
   addFormEl,
   avatarEditModal,
 } from "../utils/constants.js";
-import API from "../components/API.js";
-import PopupWithConfirmation from "../components/popupWithConfirmation.js";
+import API from "../utils/API.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 
 const api = new API({
   baseURL: "https://around.nomoreparties.co/v1/group-12",
@@ -110,7 +110,6 @@ api
     userId = userData._id;
     userInfo.setUserInfo(userData);
     userInfo.setUserAvatar(userData);
-
     cardSection.renderItems(userCards);
   })
   .catch((err) => {
@@ -137,12 +136,12 @@ const handleProfileSubmit = (inputValues) => {
     .updateUserInfo(inputValues)
     .then((res) => {
       userInfo.setUserInfo(res);
-    })
-    .then(() => {
       editPopup.closeModal();
-      editPopup.renderLoading(false, "Save");
     })
-    .catch((err) => console.log(`Error: ${err}`));
+    .catch((err) => console.log(`Error: ${err}`))
+    .finally(() => {
+      editPopup.renderLoading(false, "Save");
+    });
 };
 
 const editPopup = new PopupWithForm({
@@ -157,8 +156,6 @@ const handleCardFormSubmit = (data) => {
     .then((res) => {
       const cardElement = createCard(res, "#card-template");
       cardSection.addItem(cardElement);
-    })
-    .then(() => {
       cardAddPopup.closeModal();
       cardAddPopup.renderLoading(false);
     })
@@ -178,12 +175,12 @@ const editAvatarFormSubmitHandler = (data) => {
     .updateUserAvatar(data)
     .then((res) => {
       userInfo.setUserAvatar(res);
-    })
-    .then(() => {
       editAvatarPopup.closeModal();
-      editAvatarPopup.renderLoading(false, "Save");
     })
-    .catch((err) => console.log(`Error: ${err}`));
+    .catch((err) => console.log(`Error: ${err}`))
+    .finally(() => {
+      editAvatarPopup.renderLoading(false, "Save");
+    });
 };
 
 const editAvatarPopup = new PopupWithForm({
