@@ -157,9 +157,11 @@ const handleCardFormSubmit = (data) => {
       const cardElement = createCard(res, "#card-template");
       cardSection.addItem(cardElement);
       cardAddPopup.closeModal();
-      cardAddPopup.renderLoading(false, "Save");
     })
-    .catch((err) => console.log(`Error: ${err}`));
+    .catch((err) => console.log(`Error: ${err}`))
+    .finally(() => {
+      cardAddPopup.renderLoading(false, "Save");
+    });
 };
 
 const cardAddPopup = new PopupWithForm({
